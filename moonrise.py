@@ -1,5 +1,5 @@
 """
-Sure, here's a Python function that utilizes the Skyfield module to determine the next moonrise time in Perth, WA:
+Python function that utilizes the Skyfield module to determine the next moonrise time in Perth, WA:
 """
 from datetime import datetime, timedelta
 from pytz import timezone, utc
@@ -30,12 +30,12 @@ def get_next_moonrise():
 
     # Extract the next rise time
     for t, y in zip(ts, ys):
-        if y:
-            return t.astimezone(tz)
+        yield (y, t.astimezone(tz))
 
 
 """
 This code defines a function next_moonrise_perth() that calculates the next moonrise time in Perth, WA, using the Skyfield module. It first loads the Perth location and time zone information, loads the ephemeris data tables, then retrieves the current time. It then uses the risings_and_settings() routine to get a function giving the risen or set state for moon from the Perth observation point given a certain time. Then it the finds the first rise time in the next 24 hours. Finally, it converts the UTC time to Perth local time and returns that value.
 """
 # test
-print(get_next_moonrise())
+for y,t in get_next_moonrise():
+    print(y,t)
